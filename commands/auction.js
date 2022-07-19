@@ -1,48 +1,48 @@
+const { Client, MessageEmbed } = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName('경매')
-		.setDescription('경매에서 최대로 이득을 볼 수 있는 입찰가를 계산합니다.')
-        .addStringOption((option)=>
-            option
-                .setName("경매가")
-                .setDescription("경매 물품의 경매장 최저가")
-                .setRequired(true)
-        )
-        .addStringOption((option)=>
-            option
-                .setName("인원")
-                .setDescription("경매에 참여하는 인원")
-                .setRequired(true)
-                .addChoice("4인", "4인")
-                .addChoice("8인", "8인")
-                .addChoice("16인", "16인")
-                .addChoice("30인(필보/카게)", "30인(필보/카게)")
-        ),
+		.setDescription('가격을 입력하세요!').addStringOption(option=>
+            option.setName('input').setDescription('입력').setRequired(true)),
+    
+    
+            
 	async execute(interaction) {
-        const buyValue = parseInt(parseInt(interaction.options.getString("경매가"))*0.95);
-        const manyPeopleChoice = interaction.options.getString("인원");
-        let manyPeople;
-        if(manyPeopleChoice == "4인")
-            manyPeople = 4;
-        else if(manyPeopleChoice == "8인")
-            manyPeople = 8;
-        else if(manyPeopleChoice == "16인")
-            manyPeople = 16;
-        else if(manyPeopleChoice == "30인(필보/카게)")
-            manyPeople = 30;
-        const equalBid = parseInt(buyValue * (manyPeople - 1) / manyPeople);
-        const benefitBid = parseInt(equalBid / 11 * 10);
-        const embed = new MessageEmbed()
-        .setTitle(":moneybag: 경매 분배금 계산기")
-        .setDescription(`경매가: ${parseInt(interaction.options.getString("경매가"))}<:gold:952804483237289994> 인원: ${manyPeople}인`)
-        .setColor("#FAA8F0")
+        var input = interaction.options.getString('input');
+        var result1 = new String(result1);
+        var result2 = new String(result2);
+        console.log(input)
+        const FOUR = 0.6478;
+        const EIGHT = 0.7756;
+        var fourraid = parseInt(input*FOUR);
+        var eightraid = parseInt(input*EIGHT);
+        var fourraidlimit = parseInt(input*FOUR*1.1);
+        var eightraidlimit = parseInt(input*EIGHT*1.1);
+        // console.log(fourraid);
+        // console.log(eightraid);
+
+        // console.log(interaction.option.getString('input'))
+        const exampleEmbed = new MessageEmbed()
+        .setColor('#0099ff')
+        .setTitle('경매 계산기')
+        .setURL('')
+        // .setAuthor({ name: '\u200b', iconURL: '', url: '' })
+        .setDescription('최적가 경매 계산기')
         .addFields(
-            {name: "이 가격에 내가 입찰했는데 다른사람이 입찰하면 내가 이득이에요!", value: `입찰가: ${benefitBid}<:gold:952804483237289994> 이득: ${buyValue-benefitBid}<:gold:952804483237289994>`},
-            {name: "이 가격 이상부터 입찰하면 손해에요!", value:`입찰가: ${equalBid}<:gold:952804483237289994> 이득: ${buyValue-equalBid}<:gold:952804483237289994>`}
-        )
-        await interaction.reply({ embeds: [embed], allowedMentions: {repliedUser: false} });
-	},
+            { name: '최적가', value: '한번 더 입찰하면 상한선이에요',inline: false },
+            { name: '4인 레이드 최적가', value: `${fourraid}` , inline: true },
+            { name: '8인 레이드 최적가', value: `${eightraid}` , inline: true },
+            // { name: '\u200b', value: '\u200b'},
+            { name: '상한선', value: '이 위로 입찰하지 마세요!', inline: false},
+            { name: "4인 레이드 상한선", value: `${fourraidlimit}`, inline: true},
+            { name: "8인 레이드 상한선", value: `${eightraidlimit}`, inline: true}
+        
+            )
+        .setTimestamp();
+
+		await interaction.reply({ embeds: [exampleEmbed]});
+
+    }
 };
