@@ -11,8 +11,6 @@ module.exports = {
             
 	async execute(interaction) {
         var input = interaction.options.getString('input');
-        var result1 = new String(result1);
-        var result2 = new String(result2);
         console.log(input)
         const FOUR = 0.6478;
         const EIGHT = 0.7756;
@@ -24,7 +22,7 @@ module.exports = {
         // console.log(eightraid);
 
         // console.log(interaction.option.getString('input'))
-        const exampleEmbed = new MessageEmbed()
+        const auctionEmbed = new MessageEmbed()
         .setColor('#0099ff')
         .setTitle('경매 계산기')
         .setURL('')
@@ -42,7 +40,7 @@ module.exports = {
             )
         .setTimestamp();
 
-		await interaction.reply({ embeds: [exampleEmbed]});
+		await interaction.reply({ embeds: [auctionEmbed]});
 
     }
 };
