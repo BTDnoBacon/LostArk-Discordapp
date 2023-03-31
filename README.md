@@ -1,4 +1,4 @@
-# Mcdonald.bot
+# McDonald.bot
 
 ## 상태
 - 현재는 4인, 8인 적정 경매가만 가능합니다.
